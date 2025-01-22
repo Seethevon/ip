@@ -6,6 +6,5 @@ public class Bibi {
         System.out.println("____________________________________________________________");
         System.out.println(" Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
-        System.out.println("____________________________________________________________");
     }
 }
