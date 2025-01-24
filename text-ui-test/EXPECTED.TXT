@@ -1,38 +1,47 @@
 ____________________________________________________________
- Hello! I'm bibi
- What can I do for you?
+                           ≽^•⩊•^≼
+       Meow. It's me Bibi and I'm back from the dead!
+         Since I'm no longer there to help you out.
+          I will haunt you to do your work instead.
+____________________________________________________________
+ Here are the list of actions you can do:
+ - list
+ - bye
+ - todo
+ - deadline
+ - event
+ - mark
+ - unmark
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this task:
-   [T][ ] finish week 2 ip
- Now you have 1 task in the list.
+ Task added, don't forget to do it :
+   [T][ ]finish week 2 ip
+ Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this task:
-   [D][ ] watch lecture recording (by: Sunday)
+ Task added, don't forget to do it :
+   [D][ ]watch lecture recording (by: Sunday)
  Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
- Got it. I've added this task:
-   [E][ ] take a flight (from: Mon 12pm to: 3pm)
+ Task added, don't forget to do it :
+   [E][ ]take a flight (from: Mon 12pm to: 3pm)
  Now you have 3 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
- Here are the tasks in your list:
- 1.[T][ ] finish week 2 ip
- 2.[D][ ] watch lecture recording (by: Sunday)
- 3.[E][ ] take a flight (from: Mon 12pm to: 3pm)
+ 1.[T][ ]finish week 2 ip
+ 2.[D][ ]watch lecture recording (by: Sunday)
+ 3.[E][ ]take a flight (from: Mon 12pm to: 3pm)
 ____________________________________________________________
 ____________________________________________________________
- Nice! I've marked this task as done:
-   [X] watch lecture recording (by: Sunday)
+ Good job! :
+   [D][X]watch lecture recording (by: Sunday)
 ____________________________________________________________
 ____________________________________________________________
- Here are the tasks in your list:
- 1.[T][ ] finish week 2 ip
- 2.[D][X] watch lecture recording (by: Sunday)
- 3.[E][ ] take a flight (from: Mon 12pm to: 3pm)
+ 1.[T][ ]finish week 2 ip
+ 2.[D][X]watch lecture recording (by: Sunday)
+ 3.[E][ ]take a flight (from: Mon 12pm to: 3pm)
 ____________________________________________________________
 ____________________________________________________________
- Bye. Hope to see you again soon!
+ Goodbye Owner. ˙◠˙
 ____________________________________________________________
