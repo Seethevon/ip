@@ -16,6 +16,7 @@ public class Bibi {
         System.out.println(" - event");
         System.out.println(" - mark");
         System.out.println(" - unmark");
+        System.out.println(" - delete");
         System.out.println("____________________________________________________________");
 
         ArrayList<Task> tasks = new ArrayList<>();
@@ -88,7 +89,7 @@ public class Bibi {
                     System.out.println("____________________________________________________________");
                     System.out.println(" Task added, don't forget to do it :");
                     System.out.println("   " + tasks.get(tasks.size() - 1));
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println(" Now you have " + tasks.size() + " task(s) in the list.");
                     System.out.println("____________________________________________________________");
                 } else if (input.startsWith("deadline ")) {
                     String[] parts = input.substring(8).split(" /by ");
@@ -101,7 +102,7 @@ public class Bibi {
                     System.out.println("____________________________________________________________");
                     System.out.println(" Task added, don't forget to do it :");
                     System.out.println("   " + tasks.get(tasks.size() - 1));
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println(" Now you have " + tasks.size() + " task(s) in the list.");
                     System.out.println("____________________________________________________________");
                 } else if (input.startsWith("event ")) {
                     String[] parts = input.substring(5).split(" /from | /to ");
@@ -115,8 +116,29 @@ public class Bibi {
                     System.out.println("____________________________________________________________");
                     System.out.println(" Task added, don't forget to do it :");
                     System.out.println("   " + tasks.get(tasks.size() - 1));
-                    System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+                    System.out.println(" Now you have " + tasks.size() + " task(s) in the list.");
                     System.out.println("____________________________________________________________");
+                } else if (input.startsWith("delete ")) {
+                    try {
+                        int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
+
+                        if (taskNumber < 0 || taskNumber >= tasks.size()) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println(" Meow! Task number is out of range.");
+                            System.out.println("____________________________________________________________");
+                        } else {
+                            Task removedTask = tasks.remove(taskNumber);
+                            System.out.println("____________________________________________________________");
+                            System.out.println(" Meow! I've removed this task:");
+                            System.out.println("   " + removedTask);
+                            System.out.println(" Now you have " + tasks.size() + " task(s) in the list.");
+                            System.out.println("____________________________________________________________");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println(" Meow! Task number must be a valid integer.");
+                        System.out.println("____________________________________________________________");
+                    }
                 } else {
                     throw new BibiException("Meow! No clue what you just said. It is not within the list of actions you can do. Try Again.");
                 }
