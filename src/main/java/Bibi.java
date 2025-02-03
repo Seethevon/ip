@@ -1,5 +1,11 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
 public class Bibi {
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
@@ -22,6 +28,8 @@ public class Bibi {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         String input;
+
+        loadTasksFromFile(tasks);
 
         while (true) {
             input = scanner.nextLine();
@@ -55,6 +63,7 @@ public class Bibi {
                             System.out.println(" Good job! :");
                             System.out.println("   " + tasks.get(taskNumber));
                             System.out.println("____________________________________________________________");
+                            saveTasksToFile(tasks);
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("____________________________________________________________");
@@ -74,6 +83,7 @@ public class Bibi {
                             System.out.println(" DO YOUR WORK :");
                             System.out.println("   " + tasks.get(taskNumber));
                             System.out.println("____________________________________________________________");
+                            saveTasksToFile(tasks);
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("____________________________________________________________");
@@ -91,6 +101,7 @@ public class Bibi {
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.size() + " task(s) in the list.");
                     System.out.println("____________________________________________________________");
+                    saveTasksToFile(tasks);
                 } else if (input.startsWith("deadline ")) {
                     String[] parts = input.substring(8).split(" /by ");
                     if (parts.length < 2) {
@@ -104,6 +115,7 @@ public class Bibi {
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.size() + " task(s) in the list.");
                     System.out.println("____________________________________________________________");
+                    saveTasksToFile(tasks);
                 } else if (input.startsWith("event ")) {
                     String[] parts = input.substring(5).split(" /from | /to ");
                     if (parts.length < 3) {
@@ -118,6 +130,7 @@ public class Bibi {
                     System.out.println("   " + tasks.get(tasks.size() - 1));
                     System.out.println(" Now you have " + tasks.size() + " task(s) in the list.");
                     System.out.println("____________________________________________________________");
+                    saveTasksToFile(tasks);
                 } else if (input.startsWith("delete ")) {
                     try {
                         int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
@@ -133,6 +146,7 @@ public class Bibi {
                             System.out.println("   " + removedTask);
                             System.out.println(" Now you have " + tasks.size() + " task(s) in the list.");
                             System.out.println("____________________________________________________________");
+                            saveTasksToFile(tasks);
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("____________________________________________________________");
@@ -154,6 +168,33 @@ public class Bibi {
         }
 
         scanner.close();
+    }
+
+    private static void saveTasksToFile(ArrayList<Task> tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("./data/bibi.txt"))) {
+            for (Task task : tasks) {
+               writer.write(task.getData());
+               writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" Meow! There is an error when saving tasks to file.");
+            System.out.println("____________________________________________________________");
+        }
+    }
+
+    private static void loadTasksFromFile(ArrayList<Task> tasks) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("./data/bibi.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = Task.fromString(line);
+                tasks.add(task);
+            }
+        } catch (IOException e) {
+            System.out.println("____________________________________________________________");
+            System.out.println(" Meow! There are no current tasks found!.");
+            System.out.println("____________________________________________________________");
+        }
     }
 }
 

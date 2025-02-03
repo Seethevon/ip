@@ -19,6 +19,21 @@ public class Task {
         this.isDone = false;
     }
 
+    public String getData() {
+        return (isDone ? "T" : "F") + " | " + this.description;
+    }
+
+    public static Task fromString(String data) {
+        String[] parts = data.split(" \\| ");
+        boolean isDone = parts[0].equals("T");
+        String description = parts[1];
+        Task task = new Task(description);
+        if (isDone) {
+            task.markDone();
+        }
+        return task;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "]" + this.description;
