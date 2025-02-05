@@ -1,10 +1,12 @@
+package Bibi;
+
 import java.util.Scanner;
 
 public class Ui {
     public void showWelcome() {
         System.out.println("____________________________________________________________");
         System.out.println("                           ≽^•⩊•^≼");
-        System.out.println("       Meow. It's me Bibi and I'm back from the dead!");
+        System.out.println("       Meow. It's me Bibi.Bibi and I'm back from the dead!");
         System.out.println("         Since I'm no longer there to help you out.");
         System.out.println("          I will haunt you to do your work instead.");
         System.out.println("____________________________________________________________");

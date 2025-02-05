@@ -1,3 +1,5 @@
+package Bibi;
+
 import java.util.Scanner;
 public class Bibi {
 
