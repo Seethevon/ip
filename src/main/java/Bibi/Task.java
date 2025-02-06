@@ -29,6 +29,6 @@ public class Task {
     }
 
     public String toFileFormat() {
-        return "Bibi.Bibi.Task | " + (isDone ? "1" : "0") + " | " + description;
+        return "Task | " + (isDone ? "1" : "0") + " | " + description;
     }
 }
