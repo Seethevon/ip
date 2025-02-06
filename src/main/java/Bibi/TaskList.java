@@ -2,17 +2,35 @@ package Bibi;
 
 import java.util.ArrayList;
 
+/**
+ * Manages a list of tasks in the Bibi application.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a TaskList with an existing list of tasks.
+     *
+     * @param tasks The list of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Returns a formatted string of all tasks.
+     *
+     * @return A string listing all tasks.
+     */
     public String listTasks() {
         if (tasks.isEmpty()) {
             return "Meow! No tasks yet!";

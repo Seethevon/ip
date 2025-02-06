@@ -1,6 +1,17 @@
 package Bibi;
 
+/**
+ * Handles user input parsing and command execution.
+ */
 public class Parser {
+    /**
+     * Processes and executes user commands.
+     *
+     * @param input The user input command.
+     * @param tasks The task list to modify.
+     * @param ui    The UI handler for displaying messages.
+     * @throws BibiException If it is an unknown input.
+     */
     public static void handleCommand(String input, TaskList tasks, Ui ui) {
         try {
             if (input.equals("list")) {
@@ -35,6 +46,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a task from a file line.
+     *
+     * @param line The line read from the file.
+     * @return A Task object corresponding to the file data.
+     */
     public static Task parseTaskFromFile(String line) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
