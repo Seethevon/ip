@@ -4,6 +4,7 @@ package Bibi;
  * Handles user input parsing and command execution.
  */
 public class Parser {
+
     /**
      * Processes and executes user commands.
      *
@@ -38,6 +39,10 @@ public class Parser {
             } else if (input.startsWith("delete ")) {
                 int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
                 ui.showMessage("Meow! Removed this task:\n" + tasks.deleteTask(taskNumber));
+            } else if (input.startsWith("find ")) { // New condition for "find"
+                String keyword = input.substring(5).trim();
+                String results = tasks.findTasks(keyword);
+                ui.showMessage(results);
             } else {
                 throw new BibiException("Meow! No clue what you just said.");
             }

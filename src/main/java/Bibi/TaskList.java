@@ -74,4 +74,27 @@ public class TaskList {
     public Task getLastTask() {
         return tasks.get(tasks.size() - 1);
     }
+
+    public String findTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        String normalizedKeyword = keyword.trim().toLowerCase();
+
+        for (Task task : tasks) {
+            if (task.description.toLowerCase().contains(normalizedKeyword)) {
+                matchingTasks.add(task);
+            }
+        }
+
+        if (matchingTasks.isEmpty()) {
+            return "Meow! No matching tasks found.";
+        }
+
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            sb.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
+        }
+
+        return sb.toString();
+    }
 }
