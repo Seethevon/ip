@@ -27,4 +27,10 @@ public class Ui {
         System.out.println(message);
         System.out.println("____________________________________________________________");
     }
+
+    public void showFindResults(String result) {
+        System.out.println("____________________________________________________________");
+        System.out.println(result);
+        System.out.println("____________________________________________________________");
+    }
 }
