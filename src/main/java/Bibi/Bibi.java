@@ -49,7 +49,13 @@ public class Bibi {
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
-        new Bibi("data/tasks.txt").run();
+        new Bibi("./data/tasks.txt").run();
+    }
+
+    public String getResponse(String input) {
+        String response = Parser.handleCommand(input, tasks, ui);
+
+        return response;
     }
 }
 
