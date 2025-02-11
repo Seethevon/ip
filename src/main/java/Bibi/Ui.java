@@ -3,34 +3,47 @@ package Bibi;
 import java.util.Scanner;
 
 public class Ui {
-    public void showWelcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println("                           ≽^•⩊•^≼");
-        System.out.println("       Meow. It's me Bibi.Bibi and I'm back from the dead!");
-        System.out.println("         Since I'm no longer there to help you out.");
-        System.out.println("          I will haunt you to do your work instead.");
-        System.out.println("____________________________________________________________");
+    public String greetUser() {
+        return "Meow! I'm Bibi and I will help you with organise your tasks!";
     }
 
-    public void showGoodbye() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Goodbye Owner. ˙◠˙");
-        System.out.println("____________________________________________________________");
+    public String sayGoodbye() {
+        return "Goodbye :(";
     }
 
-    public String readCommand(Scanner scanner) {
-        return scanner.nextLine();
+    public String markTaskResponse() {
+        return "Good job! Task marked as done:\n";
     }
 
-    public void showMessage(String message) {
-        System.out.println("____________________________________________________________");
-        System.out.println(message);
-        System.out.println("____________________________________________________________");
+    public String unmarkTaskResponse() {
+        return "Task marked as not done:\n";
     }
 
-    public void showFindResults(String result) {
-        System.out.println("____________________________________________________________");
-        System.out.println(result);
-        System.out.println("____________________________________________________________");
+    public String todoResponse() {
+        return "Added a Todo:\n";
+    }
+
+    public String deadlineResponse() {
+        return "Added a Deadline:\n";
+    }
+
+    public String eventResponse() {
+        return "Added an Event:\n";
+    }
+
+    public String deleteResponse() {
+        return "Meow! Removed this task:\n";
+    }
+
+    public String commandsResponse() {
+        return "Meow! These are the commands that I know!:\n" +
+                "1. List: Lists out the tasks in a numbered format. (list) \n" +
+                "2. Mark: Marks a task on the list. (mark [task number]) \n" +
+                "3. Unmark: Unmarks a task on the list. (unmark [task number]) \n" +
+                "4. Delete: Deletes a task on the list. (delete [task numebr]) \n" +
+                "5. Find: Insert a keyword and it will search for tasks that contain it. (find [keyword]) \n" +
+                "6. Todo: Adds a Todo task. (todo [task]) \n" +
+                "7. Deadline: Adds a Deadline task containing a due date. (deadline [task] /by[date yyyy-mm-dd HHmm] \n" +
+                "8. Event: Adds an Event task containing from and to. (event [task] /from[date yyyy-mm-dd HHmm] /to[date yyyy-mm-dd HHmm] \n";
     }
 }

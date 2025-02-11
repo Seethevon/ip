@@ -12,37 +12,44 @@ public class Parser {
      * @param tasks The task list to modify.
      * @param ui    The UI handler for displaying messages.
      * @throws BibiException If it is an unknown input.
+     * @returns A response
      */
     public static String handleCommand(String input, TaskList tasks, Ui ui) {
         try {
             if (input.equals("list")) {
                 return tasks.listTasks();
+            } else if (input.equals("hi")) {
+                return ui.greetUser();
+            } else if (input.equals("commands")) {
+                return ui.commandsResponse();
             } else if (input.startsWith("mark ")) {
                 int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1;
                 tasks.markTask(taskNumber);
-                return "Good job! Task marked as done:\n" + tasks.getTask(taskNumber);
+                return ui.markTaskResponse() + tasks.getTask(taskNumber);
             } else if (input.startsWith("unmark ")) {
                 int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
                 tasks.unmarkTask(taskNumber);
-                return "Task marked as not done:\n" + tasks.getTask(taskNumber);
+                return ui.unmarkTaskResponse() + tasks.getTask(taskNumber);
             } else if (input.startsWith("todo ")) {
                 tasks.addTodo(input.substring(5).trim());
-                return "Added a Todo:\n" + tasks.getLastTask();
+                return ui.todoResponse() + tasks.getLastTask();
             } else if (input.startsWith("deadline ")) {
                 String[] parts = input.substring(9).split(" /by ");
                 tasks.addDeadline(parts[0].trim(), parts[1].trim());
-                return "Added a Deadline:\n" + tasks.getLastTask();
+                return ui.deadlineResponse() + tasks.getLastTask();
             } else if (input.startsWith("event ")) {
                 String[] parts = input.substring(6).split(" /from | /to ");
                 tasks.addEvent(parts[0].trim(), parts[1].trim(), parts[2].trim());
-                return "Added an Event:\n" + tasks.getLastTask();
+                return ui.eventResponse() + tasks.getLastTask();
             } else if (input.startsWith("delete ")) {
                 int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
-                return "Meow! Removed this task:\n" + tasks.deleteTask(taskNumber);
+                return ui.deleteResponse() + tasks.deleteTask(taskNumber);
             } else if (input.startsWith("find ")) { // New condition for "find"
                 String keyword = input.substring(5).trim();
                 String results = tasks.findTasks(keyword);
                 return results;
+            } else if (input.equals("bye")) {
+                return ui.sayGoodbye();
             } else {
                 throw new BibiException("Meow! No clue what you just said.");
             }
