@@ -16,22 +16,15 @@ public class Storage {
     }
 
     public ArrayList<Task> load() {
-        ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-        File directory = file.getParentFile();
+        createDirectoryIfNeeded(file.getParentFile());
+        createFileIfNeeded(file);
 
-        if (!directory.exists()) {
-               directory.mkdirs();
-        }
+        return loadTasksFromFile(file);
+    }
 
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Meow! Unable to create new file: " + filePath);
-            }
-            return tasks;
-        }
+    public ArrayList<Task> loadTasksFromFile(File file) {
+        ArrayList<Task> tasks = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -43,6 +36,22 @@ public class Storage {
         }
 
         return tasks;
+    }
+
+    public void createDirectoryIfNeeded(File directory) {
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+    }
+
+    public void createFileIfNeeded(File file) {
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Meow! Unable to create new file: " + filePath);
+            }
+        }
     }
 
     public void save(TaskList taskList) {
