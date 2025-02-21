@@ -9,6 +9,7 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) {
         super(description);
+        assert description != null : "Description cannot be null";
         this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
