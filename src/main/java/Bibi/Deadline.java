@@ -2,6 +2,7 @@ package Bibi;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Represents a task with a deadline.
@@ -49,4 +50,9 @@ public class Deadline extends Task {
     public LocalDateTime getBy() {
         return by;
     }
+
+    public void postpone(long amount, ChronoUnit unit) {
+        this.by = this.by.plus(amount, unit);
+    }
+
 }

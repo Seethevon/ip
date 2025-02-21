@@ -33,4 +33,5 @@ public class Task {
     public String toFileFormat() {
         return "Task | " + (isDone ? "1" : "0") + " | " + description;
     }
+
 }

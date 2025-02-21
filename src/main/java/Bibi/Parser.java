@@ -1,5 +1,8 @@
 package Bibi;
 
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 /**
  * Handles user input parsing and command execution.
  */
@@ -36,6 +39,8 @@ public class Parser {
                 return deleteTask(input, tasks, ui);
             } else if (input.startsWith("find ")) { // New condition for "find"
                 return findTasks(input, tasks);
+            } else if (input.startsWith("snooze ")) {
+                return snoozeTask(input, tasks, ui);
             } else if (input.equals("bye")) {
                 return ui.sayGoodbye();
             } else {
@@ -46,7 +51,48 @@ public class Parser {
         }
     }
 
-    private static String markTask(String input, TaskList tasks, Ui ui) {
+    public static String snoozeTask(String input, TaskList tasks, Ui ui) {
+        try {
+            String[] parts = input.split(" ", 3);
+            int taskNumber = Integer.parseInt(parts[1]) - 1;
+            String durationStr = parts[2].trim();
+
+            Task task = tasks.getTask(taskNumber);
+
+            if (task instanceof Deadline) {
+                Deadline deadlineTask = (Deadline) task;
+                long durationMillis = parseDuration(durationStr);
+                if (durationMillis <= 0) {
+                    return "Meow! Invalid snooze duration.";
+                }
+
+                if (durationStr.contains("hour")) {
+                    deadlineTask.postpone(durationMillis / (60 * 60 * 1000), ChronoUnit.HOURS);
+                } else if (durationStr.contains("day")) {
+                    deadlineTask.postpone(durationMillis / (24 * 60 * 60 * 1000), ChronoUnit.DAYS);
+                }
+
+                return "Task snoozed until: " + deadlineTask.getBy().format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+            }
+
+            return "Meow! Only Deadline tasks can be snoozed.";
+        } catch (Exception e) {
+            return "Meow! Invalid task number or duration.";
+        }
+    }
+
+    public static long parseDuration(String durationStr) {
+        if (durationStr.contains("hour")) {
+            int hours = Integer.parseInt(durationStr.split(" ")[0]);
+            return hours * 60 * 60 * 1000;
+        } else if (durationStr.contains("day")) {
+            int days = Integer.parseInt(durationStr.split(" ")[0]);
+            return days * 24 * 60 * 60 * 1000;
+        }
+        return 0;
+    }
+
+    public static String markTask(String input, TaskList tasks, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1;
             tasks.markTask(taskNumber);
@@ -56,7 +102,7 @@ public class Parser {
         }
     }
 
-    private static String unmarkTask(String input, TaskList tasks, Ui ui) {
+    public static String unmarkTask(String input, TaskList tasks, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
             tasks.unmarkTask(taskNumber);
@@ -66,7 +112,7 @@ public class Parser {
         }
     }
 
-    private static String deleteTask(String input, TaskList tasks, Ui ui) {
+    public static String deleteTask(String input, TaskList tasks, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
             return ui.deleteResponse() + tasks.deleteTask(taskNumber);
@@ -75,7 +121,7 @@ public class Parser {
         }
     }
 
-    private static String findTasks(String input, TaskList tasks) {
+    public static String findTasks(String input, TaskList tasks) {
         String keyword = input.substring(5).trim();
         return tasks.findTasks(keyword);
     }
