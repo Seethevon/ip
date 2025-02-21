@@ -22,6 +22,7 @@ public class Bibi {
     }
 
     public String getResponse(String input) {
+        assert input != null : "Input cannot be null";
         String response = Parser.handleCommand(input, tasks, ui);
         storage.save(tasks);
         return response;

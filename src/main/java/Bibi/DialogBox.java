@@ -49,10 +49,14 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
+        assert img != null : "User should have an image";
+        assert text != null : "User should have a response";
         return new DialogBox(text, img);
     }
 
     public static DialogBox getBibiDialog(String text, Image img) {
+        assert img != null : "Bibi should have an image";
+        assert text != null : "Bibi should have a response";
         var db = new DialogBox(text, img);
         db.flip();
         return db;

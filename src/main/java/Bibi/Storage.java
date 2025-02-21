@@ -46,6 +46,8 @@ public class Storage {
     }
 
     public void save(TaskList taskList) {
+        assert taskList != null : "TaskList cannot be null";
+        assert (new File("./data/tasks")).exists() : "The file must exist before it can save";
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : taskList.getTasks()) {
                 bw.write(task.toFileFormat());
