@@ -23,39 +23,61 @@ public class Parser {
             } else if (input.equals("commands")) {
                 return ui.commandsResponse();
             } else if (input.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1;
-                tasks.markTask(taskNumber);
-                return ui.markTaskResponse() + tasks.getTask(taskNumber);
+                return markTask(input, tasks, ui);
             } else if (input.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
-                tasks.unmarkTask(taskNumber);
-                return ui.unmarkTaskResponse() + tasks.getTask(taskNumber);
+                return unmarkTask(input, tasks, ui);
             } else if (input.startsWith("todo ")) {
-                tasks.addTodo(input.substring(5).trim());
-                return ui.todoResponse() + tasks.getLastTask();
+                return tasks.addTodoTask(input.substring(5).trim(), ui);
             } else if (input.startsWith("deadline ")) {
-                String[] parts = input.substring(9).split(" /by ");
-                tasks.addDeadline(parts[0].trim(), parts[1].trim());
-                return ui.deadlineResponse() + tasks.getLastTask();
+                return tasks.addDeadlineTask(input.substring(9).trim(), ui);
             } else if (input.startsWith("event ")) {
-                String[] parts = input.substring(6).split(" /from | /to ");
-                tasks.addEvent(parts[0].trim(), parts[1].trim(), parts[2].trim());
-                return ui.eventResponse() + tasks.getLastTask();
+                return tasks.addEventTask(input.substring(6).trim(), ui);
             } else if (input.startsWith("delete ")) {
-                int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
-                return ui.deleteResponse() + tasks.deleteTask(taskNumber);
+                return deleteTask(input, tasks, ui);
             } else if (input.startsWith("find ")) { // New condition for "find"
-                String keyword = input.substring(5).trim();
-                String results = tasks.findTasks(keyword);
-                return results;
+                return findTasks(input, tasks);
             } else if (input.equals("bye")) {
                 return ui.sayGoodbye();
             } else {
-                throw new BibiException("Meow! No clue what you just said.");
+                throw new BibiException("No clue what you just said.");
             }
         } catch (Exception e) {
             return "Meow! Something went wrong: " + e.getMessage();
         }
+    }
+
+    private static String markTask(String input, TaskList tasks, Ui ui) {
+        try {
+            int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1;
+            tasks.markTask(taskNumber);
+            return ui.markTaskResponse() + tasks.getTask(taskNumber);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return "Meow! Invalid task number.";
+        }
+    }
+
+    private static String unmarkTask(String input, TaskList tasks, Ui ui) {
+        try {
+            int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
+            tasks.unmarkTask(taskNumber);
+            return ui.unmarkTaskResponse() + tasks.getTask(taskNumber);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return "Meow! Invalid task number.";
+        }
+    }
+
+    private static String deleteTask(String input, TaskList tasks, Ui ui) {
+        try {
+            int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
+            return ui.deleteResponse() + tasks.deleteTask(taskNumber);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            return "Meow! Invalid task number.";
+        }
+    }
+
+    private static String findTasks(String input, TaskList tasks) {
+        String keyword = input.substring(5).trim();
+        return tasks.findTasks(keyword);
     }
 
     /**
@@ -70,19 +92,25 @@ public class Parser {
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
-        Task task;
-        if (type.equals("T")) {
-            task = new Todo(description);
-        } else if (type.equals("D")) {
-            task = new Deadline(description, parts[3]);
-        } else {
-            task = new Event(description, parts[3], parts[4]);
-        }
+        Task task = createTask(type, description, parts);
 
         if (isDone) {
             task.markDone();
         }
         return task;
+    }
+
+    public static Task createTask(String type, String description, String[] parts) {
+        switch (type) {
+        case "T":
+            return new Todo(description);
+        case "D":
+            return new Deadline(description, parts[3]);
+        case "E":
+            return new Event(description, parts[3], parts[4]);
+        default:
+            throw new IllegalArgumentException("Unknown task type: " + type);
+        }
     }
 
 }

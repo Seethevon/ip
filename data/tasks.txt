@@ -2,3 +2,4 @@ D | 0 | finish assg1 | 2025-02-01 1000
 T | 0 | read book
 D | 0 | return book | 2025-06-06 1800
 E | 0 | work on Week 5 ip | 2025-02-11 1800 | 2025-02-11 2000
+T | 0 | chat

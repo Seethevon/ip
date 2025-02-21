@@ -33,9 +33,16 @@ public class TaskList {
      */
     public String listTasks() {
         if (tasks.isEmpty()) {
-            return "Meow! No tasks yet!";
+            return getEmptyListMessage();
         }
+        return getTaskList();
+    }
 
+    public String getEmptyListMessage(){
+        return "Meow! No tasks yet!";
+    }
+
+    public String getTaskList() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
@@ -76,8 +83,17 @@ public class TaskList {
     }
 
     public String findTasks(String keyword) {
-        ArrayList<Task> matchingTasks = new ArrayList<>();
+        ArrayList<Task> matchingTasks = findMatchingTasks(keyword);
 
+        if (matchingTasks.isEmpty()) {
+            return "Meow! No matching tasks found.";
+        }
+
+        return formatMatchingTask(matchingTasks);
+    }
+
+    public ArrayList<Task> findMatchingTasks(String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
         String normalizedKeyword = keyword.trim().toLowerCase();
 
         for (Task task : tasks) {
@@ -85,16 +101,32 @@ public class TaskList {
                 matchingTasks.add(task);
             }
         }
+        return matchingTasks;
+    }
 
-        if (matchingTasks.isEmpty()) {
-            return "Meow! No matching tasks found.";
-        }
-
+    public String formatMatchingTask(ArrayList<Task> matchingTasks) {
         StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
             sb.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
         }
 
         return sb.toString();
+    }
+
+    public String addTodoTask(String description, Ui ui) {
+        this.tasks.add(new Todo(description));
+        return ui.todoResponse() + this.getLastTask();
+    }
+
+    public String addDeadlineTask(String input, Ui ui) {
+        String[] parts = input.split(" /by ");
+        this.tasks.add(new Deadline(parts[0].trim(), parts[1].trim()));
+        return ui.deadlineResponse() + this.getLastTask();
+    }
+
+    public String addEventTask(String input, Ui ui) {
+        String[] parts = input.split(" /from | /to ");
+        this.tasks.add(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+        return ui.eventResponse() + this.getLastTask();
     }
 }

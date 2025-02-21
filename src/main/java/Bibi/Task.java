@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 public class Task {
     protected String description;
     protected boolean isDone;
+    private static final String DONE_ICON = "X";
+    private static final String NOT_DONE_ICON = " ";
 
     public Task(String description) {
         this.description = description;
@@ -13,7 +15,7 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return (isDone ? DONE_ICON : NOT_DONE_ICON);
     }
 
     public void markDone() {
