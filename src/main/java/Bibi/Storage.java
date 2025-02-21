@@ -18,8 +18,18 @@ public class Storage {
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
+        File directory = file.getParentFile();
+
+        if (!directory.exists()) {
+               directory.mkdirs();
+        }
 
         if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Meow! Unable to create new file: " + filePath);
+            }
             return tasks;
         }
 
