@@ -17,7 +17,9 @@ public class Ui {
             "5. Find: Insert a keyword and it will search for tasks that contain it. (find [keyword])\n" +
             "6. Todo: Adds a Todo task. (todo [task])\n" +
             "7. Deadline: Adds a Deadline task containing a due date. (deadline [task] /by[date yyyy-mm-dd HHmm])\n" +
-            "8. Event: Adds an Event task containing from and to. (event [task] /from[date yyyy-mm-dd HHmm] /to[date yyyy-mm-dd HHmm])\n";
+            "8. Event: Adds an Event task containing from and to. (event [task] /from[date yyyy-mm-dd HHmm] /to[date yyyy-mm-dd HHmm])\n" +
+            "9. Snooze: Allows user to postpone a task's deadline. (snooze [task number] [number] hour/day)";
+
 
     public String greetUser() {
         return GREETING_MESSAGE;
