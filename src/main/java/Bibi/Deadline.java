@@ -5,7 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Represents a task with a deadline.
+ * Represents a task with a deadline in the Bibi task management application.
+ * This task has a due date and can be postponed.
  */
 public class Deadline extends Task {
     private LocalDateTime by;
@@ -14,7 +15,7 @@ public class Deadline extends Task {
      * Constructs a Deadline task.
      *
      * @param description Task description.
-     * @param by          Due date in the format "yyyy-MM-dd HHmm".
+     * @param by Due date in the format "yyyy-MM-dd HHmm".
      */
     public Deadline(String description, String by) {
         super(description);
@@ -51,6 +52,12 @@ public class Deadline extends Task {
         return by;
     }
 
+    /**
+     * Postpones the deadline by a specified amount of time.
+     *
+     * @param amount The amount of time to extend the deadline.
+     * @param unit The unit of time (e.g., days, hours, minutes).
+     */
     public void postpone(long amount, ChronoUnit unit) {
         this.by = this.by.plus(amount, unit);
     }

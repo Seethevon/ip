@@ -21,6 +21,15 @@ public class Bibi {
         tasks = new TaskList(storage.load());
     }
 
+    /**
+     * Processes user input and returns the corresponding response.
+     * The input is parsed, the appropriate action is executed,
+     * and the updated task list is saved to storage.
+     *
+     * @param input The user command input.
+     * @return The response message after processing the command.
+     * @throws AssertionError if the input is null.
+     */
     public String getResponse(String input) {
         assert input != null : "Input cannot be null";
         String response = Parser.handleCommand(input, tasks, ui);

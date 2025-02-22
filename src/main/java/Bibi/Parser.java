@@ -13,9 +13,9 @@ public class Parser {
      *
      * @param input The user input command.
      * @param tasks The task list to modify.
-     * @param ui    The UI handler for displaying messages.
+     * @param ui The UI handler for displaying messages.
      * @throws BibiException If it is an unknown input.
-     * @returns A response
+     * @returns A response based on the command executed.
      */
     public static String handleCommand(String input, TaskList tasks, Ui ui) {
         try {
@@ -51,6 +51,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the snooze command, allowing the user to postpone a Deadline task.
+     *
+     * @param input The snooze command input.
+     * @param tasks The task list to modify.
+     * @param ui The UI handler for displaying messages.
+     * @return A message indicating whether the task was successfully snoozed.
+     */
     public static String snoozeTask(String input, TaskList tasks, Ui ui) {
         try {
             String[] parts = input.split(" ", 3);
@@ -81,6 +89,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a duration string and converts it to milliseconds.
+     *
+     * @param durationStr The duration string (e.g., "2 hour", "3 day").
+     * @return The duration in milliseconds.
+     */
     public static long parseDuration(String durationStr) {
         if (durationStr.contains("hour")) {
             int hours = Integer.parseInt(durationStr.split(" ")[0]);
@@ -92,6 +106,14 @@ public class Parser {
         return 0;
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param input The mark command input.
+     * @param tasks The task list to modify.
+     * @param ui The UI handler for displaying messages.
+     * @return A message indicating the task has been marked as done.
+     */
     public static String markTask(String input, TaskList tasks, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.substring(5).trim()) - 1;
@@ -102,6 +124,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Unmarks a task as done.
+     *
+     * @param input The unmark command input.
+     * @param tasks The task list to modify.
+     * @param ui The UI handler for displaying messages.
+     * @return A message indicating the task has been unmarked as done.
+     */
     public static String unmarkTask(String input, TaskList tasks, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
@@ -112,6 +142,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param input The delete command input.
+     * @param tasks The task list to modify.
+     * @param ui The UI handler for displaying messages.
+     * @return A message indicating the task has been deleted.
+     */
+
     public static String deleteTask(String input, TaskList tasks, Ui ui) {
         try {
             int taskNumber = Integer.parseInt(input.substring(7).trim()) - 1;
@@ -121,6 +160,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Finds tasks that contain a keyword in their description.
+     *
+     * @param input The find command input with the keyword.
+     * @param tasks The task list to search through.
+     * @return A string listing the tasks that match the keyword.
+     */
     public static String findTasks(String input, TaskList tasks) {
         String keyword = input.substring(5).trim();
         return tasks.findTasks(keyword);
@@ -146,6 +192,15 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Creates a task based on the type and data provided.
+     *
+     * @param type The type of the task (e.g., "T" for Todo, "D" for Deadline).
+     * @param description The description of the task.
+     * @param parts The additional parts needed to create the task.
+     * @return A Task object corresponding to the provided type.
+     * @throws IllegalArgumentException If the task type is invalid.
+     */
     public static Task createTask(String type, String description, String[] parts) {
         switch (type) {
         case "T":
