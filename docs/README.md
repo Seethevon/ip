@@ -1,7 +1,6 @@
 
 # Bibi's User Guide 🐾
-![Bibi Bot](../docs/Ui.png.PNG)
-![Bibi Bot](../docs/Ui.png.PNG)
+![Bibi Bot](/Ui.png.PNG)
 
 Meow! I'm Bibi, your friendly task manager! Here's what I can do for you, and don't worry - I make sure everything is purr-fect! 🐱
 
